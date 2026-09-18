@@ -40,6 +40,7 @@ void processURL()
     else
     {
         cout << "Invalid URL.\n";
+        cout << "URL must start with 'http://' or 'https://'.\n";
     }
 }
 
@@ -80,4 +81,10 @@ void processText()
         cout << "Invalid text.\n";
         cout << "Text cannot be empty.\n";
     }
+}
+
+// ========== Contact Processing ==========
+void processContact()
+{
+    cout << "\nContact Information Processing is not implemented yet.\n";
 }
