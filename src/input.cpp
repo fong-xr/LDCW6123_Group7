@@ -63,3 +63,11 @@ bool validateContact(contactInfo contact){
 
     return true;
 }
+
+// Display Contact Info
+void displayContact(contactInfo contact) {
+    cout << "\n===== CONTACT INFORMATION =====" << endl;
+    cout << "Name: " << contact.name << endl;
+    cout << "Phone Number: " << contact.phone << endl;
+    cout << "Email: " << contact.email << endl;
+}
