@@ -29,19 +29,21 @@ void processURL()
 {
     string url;
 
-    cout << "\nEnter URL: ";
-    getline(cin, url);
+    do
+    {
+        cout << "\nEnter URL: ";
+        getline(cin, url);
 
-    if (validateURL(url))
-    {
-        cout << "Valid URL.\n";
-        cout << "Content: " << url << endl;
-    }
-    else
-    {
-        cout << "Invalid URL.\n";
-        cout << "URL must start with 'http://' or 'https://'.\n";
-    }
+        if (!validateURL(url))
+        {
+            cout << "\nInvalid URL.\n";
+            cout << "URL must start with 'http://' or 'https://'.\n";
+        }
+
+    } while (!validateURL(url));
+
+    cout << "\nValid URL.\n";
+    cout << "Content: " << url << endl;
 }
 
 // ========== Text Validation ==========
@@ -68,19 +70,21 @@ void processText()
 {
     string text;
 
-    cout << "\nEnter text: ";
-    getline(cin, text);
+    do
+    {
+        cout << "\nEnter text: ";
+        getline(cin, text);
 
-    if (validateText(text))
-    {
-        cout << "Valid text.\n";
-        cout << "Content: " << text << endl;
-    }
-    else
-    {
-        cout << "Invalid text.\n";
-        cout << "Text cannot be empty.\n";
-    }
+        if (!validateText(text))
+        {
+            cout << "\nInvalid text.\n";
+            cout << "Text cannot be empty.\n";
+        }
+
+    } while (!validateText(text));
+
+    cout << "\nValid text.\n";
+    cout << "Content: " << text << endl;
 }
 
 // ========== Contact Processing ==========
