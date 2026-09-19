@@ -23,12 +23,12 @@ int main ()
     do
     {
         cout << "\nQR Code Content Assistant\n";
-        cout << "1. URL\n";
+        cout << "\n1. URL\n";
         cout << "2. Text\n";
         cout << "3. Contact Information\n";
         cout << "4. Exit\n";
 
-        cout << "Enter your choice: ";
+        cout << "\nEnter your choice: ";
 
         cin >> choice;
         cin.ignore();
@@ -47,11 +47,11 @@ int main ()
         }
         else if (choice == 4)
         {
-            cout << "Exiting the program.\n";
+            cout << "\nExiting the program.\n";
         }
         else
         {
-            cout << "Invalid choice.\n";
+            cout << "\nInvalid choice.\n";
         }
 
     } while (choice != 4);
