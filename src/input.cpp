@@ -99,39 +99,55 @@ struct contactInfo{
 // Validate Contact Input
 bool validateContact(contactInfo *contact){
 
-    // empty field check
+    bool valid = true;
+
+    // Empty field check
     if (contact->name.empty() || contact->phone.empty() || contact->email.empty()) 
     {
-        cout << "\nERROR: All information are required." << endl;
-        return false;
+        cout << "ERROR: All information are required." << endl;
+        valid = false;
     }
 
-    // check name
-    for (char c : contact->name)
+    // Check name
+    if (!contact->name.empty())
     {
-        if(!isalpha(c) && !isspace(c)){
-            cout << "\nERROR: Name only contains letters and spaces." << endl;
-            return false;
+        for (char c : contact->name)
+        {
+            if (!isalpha(c) && !isspace(c))
+            {
+                cout << "ERROR: Name only contains letters and spaces." << endl;
+                valid = false;
+                break;
+            }
         }
     }
 
-    // phone number
-    for (char c : contact->phone)
+    // Check phone number
+    if (!contact->phone.empty())
     {
-        if(!isdigit(c)){
-            cout << "\nERROR: Phone number only contains digits." << endl;
-            return false;
+        for (char c : contact->phone)
+        {
+            if (!isdigit(c))
+            {
+                cout << "ERROR: Phone number only contains digits." << endl;
+                valid = false;
+                break;
+            }
         }
     }
 
-    // check email
-    if (contact->email.find('@') == string::npos || contact->email.find(".com") == string::npos) 
+    // Check email
+    if (!contact->email.empty())
     {
-        cout << "\nERROR: Invalid email address." << endl;
-        return false;
+        if (contact->email.find('@') == string::npos ||
+            contact->email.find(".com") == string::npos)
+        {
+            cout << "ERROR: Invalid email address." << endl;
+            valid = false;
+        }
     }
 
-    return true;
+    return valid;
 }
 
 // Display Contact Info
@@ -143,26 +159,34 @@ void displayContact(contactInfo *contact){
 }
 
 // Input Contact Info Function
-void processContact(){
-
+void processContact()
+{
     contactInfo contact;
+    bool valid;
 
-    cout << "===== ENTER CONTACT INFORMTAION =====" << endl;
+    do
+    {
+        cout << "\n===== ENTER CONTACT INFORMATION =====" << endl;
 
-    cout << "Enter name: ";
-    getline(cin, contact.name);
+        cout << "Enter name: ";
+        getline(cin, contact.name);
 
-    cout << "Enter phone number: ";
-    getline(cin, contact.phone);
+        cout << "Enter phone number: ";
+        getline(cin, contact.phone);
 
-    cout << "Enter email address: ";
-    getline(cin, contact.email);
+        cout << "Enter email address: \n";
+        getline(cin, contact.email);
 
-    if (validateContact(&contact)) {
-        cout << "Valid contact information." << endl;
-        displayContact(&contact);
-    } 
-    else{
-        cout << "Invalid contact information." << endl;
-    }
+        valid = validateContact(&contact);
+
+        if (!valid)
+        {
+            cout << "\nInvalid contact information." << endl;
+            cout << "Please enter the information again." << endl;
+        }
+
+    } while (!valid);
+
+    cout << "\nValid contact information." << endl;
+    displayContact(&contact);
 }
