@@ -86,14 +86,62 @@ void processText()
 
 // ========== Contact Processing ==========
 // Contact Information Store
-struct contactInfo {
+struct contactInfo{
     string name;
     string phone;
     string email;
 };
 
+// Validate Contact Input
+bool validateContact(contactInfo *contact){
+
+    // empty field check
+    if (contact->name.empty() || contact->phone.empty() || contact->email.empty()) 
+    {
+        cout << "\nERROR: All information are required." << endl;
+        return false;
+    }
+
+    // check name
+    for (char c : contact->name)
+    {
+        if(!isalpha(c) && !isspace(c)){
+            cout << "\nERROR: Name only contains letters and spaces." << endl;
+            return false;
+        }
+    }
+
+    // phone number
+    for (char c : contact->phone)
+    {
+        if(!isdigit(c)){
+            cout << "\nERROR: Phone number only contains digits." << endl;
+            return false;
+        }
+    }
+
+    // check email
+    if (contact->email.find('@') == string::npos || contact->email.find(".com") == string::npos) 
+    {
+        cout << "\nERROR: Invalid email address." << endl;
+        return false;
+    }
+
+    return true;
+}
+
+// Display Contact Info
+void displayContact(contactInfo *contact){
+    cout << "\n===== CONTACT INFORMATION =====" << endl;
+    cout << "Name: " << contact->name << endl;
+    cout << "Phone Number: " << contact->phone << endl;
+    cout << "Email: " << contact->email << endl;
+}
+
 // Input Contact Info Function
-void processContact(contactInfo &contact) {
+void processContact(){
+
+    contactInfo contact;
 
     cout << "===== ENTER CONTACT INFORMTAION =====" << endl;
 
@@ -105,49 +153,12 @@ void processContact(contactInfo &contact) {
 
     cout << "Enter email address: ";
     getline(cin, contact.email);
+
+    if (validateContact(&contact)) {
+        cout << "Valid contact information." << endl;
+        displayContact(&contact);
+    } 
+    else{
+        cout << "Invalid contact information." << endl;
+    }
 }
-
-// Validate Contact Input
-bool validateContact(contactInfo contact){
-
-    // empty field check
-    if (contact.name.empty() || contact.phone.empty() || contact.email.empty()) 
-    {
-        cout << "\nERROR: All information are required." << endl;
-        return false;
-    }
-
-    // check name
-    for (char c : contact.name)
-    {
-        if(!isalpha(c) && !isspace(c)){
-            cout << "\nERROR: Name only contains letters and spaces." << endl;
-            return false;
-        }
-    }
-
-    // phone number
-    for (char c : contact.phone)
-    {
-        if(!isdigit(c)){
-            cout << "\nERROR: Phone number only contains digits." << endl;
-            return false;
-        }
-    }
-
-    // check email
-    if (contact.email.find('@') == string::npos || contact.email.find(".com") == string::npos) 
-    {
-        cout << "\nERROR: Invalid email address." << endl;
-        return false;
-    }
-
-    return true;
-}
-
-// Display Contact Info
-void displayContact(contactInfo contact) {
-    cout << "\n===== CONTACT INFORMATION =====" << endl;
-    cout << "Name: " << contact.name << endl;
-    cout << "Phone Number: " << contact.phone << endl;
-    cout << "Email: " << contact.email << endl;
