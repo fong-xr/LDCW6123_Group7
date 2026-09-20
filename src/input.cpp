@@ -6,6 +6,12 @@ using namespace std;
 
 void generateQR(string content);
 
+// ========== Clear Screen ==========
+void clearScreen()
+{
+    system("cls");
+}
+
 // ========== URL Validation ==========
 bool validateURL(string url)
 {
@@ -39,8 +45,10 @@ void processURL()
 
         if (!validateURL(url))
         {
+            cout << "\n*********************** Error ************************\n";
             cout << "\nInvalid URL.\n";
             cout << "URL must start with 'http://' or 'https://'.\n";
+            cout << "\n------------------------------------------------------\n";
         }
 
     } while (!validateURL(url));
@@ -48,6 +56,11 @@ void processURL()
     cout << "\nValid URL.\n";
     cout << "Content: " << url << endl;
     generateQR(url);
+
+    cout << "\nPress Enter to continue...";
+    cin.get();
+
+    clearScreen();
 }
 
 // ========== Text Validation ==========
@@ -81,8 +94,10 @@ void processText()
 
         if (!validateText(text))
         {
+            cout << "\n*********************** Error ************************\n";
             cout << "\nInvalid text.\n";
             cout << "Text cannot be empty.\n";
+            cout << "\n------------------------------------------------------\n";
         }
 
     } while (!validateText(text));
@@ -90,6 +105,11 @@ void processText()
     cout << "\nValid text.\n";
     cout << "Content: " << text << endl;
     generateQR(text);
+
+    cout << "\nPress Enter to continue...";
+    cin.get();
+
+    clearScreen();
 }
 
 // ========== Contact Processing ==========
@@ -104,11 +124,18 @@ struct contactInfo{
 bool validateContact(contactInfo *contact){
 
     bool valid = true;
+    bool firstError = true;
 
     // Empty field check
     if (contact->name.empty() || contact->phone.empty() || contact->email.empty()) 
     {
-        cout << "ERROR: All information are required." << endl;
+        if (firstError)
+        {
+            cout << "\n*********************** Error ************************\n\n";
+            firstError = false;
+        }
+
+        cout << "All information are required." << endl;
         valid = false;
     }
 
@@ -125,7 +152,13 @@ bool validateContact(contactInfo *contact){
             }
             else if (!isspace(c))
             {
-                cout << "ERROR: Name only contains letters and spaces." << endl;
+                if (firstError)
+                {
+                    cout << "\n*********************** Error ************************\n\n";
+                    firstError = false;
+                }
+
+                cout << "Name only contains letters and spaces." << endl;
                 valid = false;
                 break;
             }
@@ -134,7 +167,13 @@ bool validateContact(contactInfo *contact){
         // Check if name contains at least one letter
         if (hasLetter == false)
         {
-            cout << "ERROR: Name must contain at least one letter." << endl;
+            if (firstError)
+            {
+                cout << "\n*********************** Error ************************\n\n";
+                firstError = false;
+            }
+
+            cout << "Name must contain at least one letter." << endl;
             valid = false;
         }
     }
@@ -146,7 +185,13 @@ bool validateContact(contactInfo *contact){
         {
             if (!isdigit(c))
             {
-                cout << "ERROR: Phone number only contains digits." << endl;
+                if (firstError)
+                {
+                    cout << "\n*********************** Error ************************\n\n";
+                    firstError = false;
+                }
+
+                cout << "Phone number only contains digits." << endl;
                 valid = false;
                 break;
             }
@@ -158,7 +203,13 @@ bool validateContact(contactInfo *contact){
     {
         if (contact->email.find('@') == string::npos || contact->email.find(".com") == string::npos)
         {
-            cout << "ERROR: Invalid email address." << endl;
+            if (firstError)
+            {
+                cout << "\n*********************** Error ************************\n\n";
+                firstError = false;
+            }
+
+            cout << "Invalid email address." << endl;
             valid = false;
         }
     }
@@ -168,7 +219,7 @@ bool validateContact(contactInfo *contact){
 
 // Display Contact Info
 void displayContact(contactInfo *contact){
-    cout << "\n===== CONTACT INFORMATION =====" << endl;
+    cout << "\n---------- CONTACT INFORMATION -----------" << endl;
     cout << "Name: " << contact->name << endl;
     cout << "Phone Number: " << contact->phone << endl;
     cout << "Email: " << contact->email << endl;
@@ -182,15 +233,15 @@ void processContact()
 
     do
     {
-        cout << "\n===== ENTER CONTACT INFORMATION =====" << endl;
+        cout << "\n-------------- ENTER CONTACT INFORMATION -------------\n" << endl;
 
-        cout << "Enter name: ";
+        cout << "Enter name          : ";
         getline(cin, contact.name);
 
-        cout << "Enter phone number: ";
+        cout << "Enter phone number  : ";
         getline(cin, contact.phone);
 
-        cout << "Enter email address: ";
+        cout << "Enter email address : ";
         getline(cin, contact.email);
 
         valid = validateContact(&contact);
@@ -206,4 +257,9 @@ void processContact()
     cout << "\nValid contact information." << endl;
     displayContact(&contact);
     generateQR(contact.name + "|" + contact.phone + "|" + contact.email);
+
+    cout << "\nPress Enter to continue...";
+    cin.get();
+
+    clearScreen();
 }

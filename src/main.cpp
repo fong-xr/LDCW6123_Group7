@@ -15,6 +15,9 @@ bool validateText(string text);
 // Contact functions
 void processContact();
 
+// Clear Screen function
+void clearScreen();
+
 // ========== Main Function ==========
 int main ()
 {
@@ -22,16 +25,42 @@ int main ()
 
     do
     {
-        cout << "\nQR Code Content Assistant\n";
-        cout << "\n1. URL\n";
-        cout << "2. Text\n";
-        cout << "3. Contact Information\n";
-        cout << "4. Exit\n";
+        cout << "\n .▪        ⌈‾‾    ____        _____    .▫";
+        cout << "\n                |  _  |     |  __  |             ▸";
+        cout << "\n        ▪      |  | |  |   |  |__|  |      . .";
+        cout << "\n     .        |  |   |  |  |       |";
+        cout << "\n               |  |_|  |   |  ||  |    ▴";
+        cout << "\n         .▫     |___ _|    |  | |  |           ▪";
+        cout << "\n   ▴               |_|     |__|  |__|     .\n";
+        cout << "\n                  Content Assistant    __⌋\n";
+        cout << "======================================================";
 
-        cout << "\nEnter your choice: ";
+        cout << "\n         ___           ___\n";
+        cout << "        ( 1 ) URL     ( 2 ) Contact Information\n";
+        cout << "         ‾‾‾           ‾‾‾\n";
+        cout << "                ___            ___\n";
+        cout << "               ( 3 ) Text     ( 4 ) Exit\n";
+        cout << "                ‾‾‾            ‾‾‾\n";
+        cout << "======================================================\n";
+
+        cout << "               Enter your choice : ";
 
         cin >> choice;
-        cin.ignore();
+
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "\n !!! Invalid choice. Please enter 1, 2, 3, or 4. !!!\n";
+            cout << "======================================================\n";
+
+            continue;
+        }
+
+        cin.ignore(1000, '\n');
+
+        cout << "======================================================\n";
 
         if (choice == 1)
         {
@@ -39,19 +68,20 @@ int main ()
         }
         else if (choice == 2)
         {
-            processText();
+            processContact();
         }
         else if (choice == 3)
         {
-            processContact();
+            processText();
         }
         else if (choice == 4)
         {
-            cout << "\nExiting the program.\n";
+            cout << "\n                Exiting the program.\n";
+            cout << "                ````````````````````\n";
         }
         else
         {
-            cout << "\nInvalid choice.\n";
+            cout << "\nInvalid choice. Please enter 1, 2, 3, or 4.\n";
         }
 
     } while (choice != 4);

@@ -6,7 +6,7 @@ using namespace std;
 // QR Pattern Generator
 void generateQR(string content){
 
-    cout << "\n===== QR Code Pattern =====" << endl;
+    cout << "\n------------ QR Code Pattern -------------\n" << endl;
 
     // Size of the QR code pattern (21x21)
     int size = 21; 
@@ -73,4 +73,5 @@ void generateQR(string content){
 
     cout << "\nNote: This is a simplified QR-like pattern." << endl;
     cout << "It is NOT a real scannable QR code." << endl;
+    cout << "-------------------------------------------" << endl;
 }
