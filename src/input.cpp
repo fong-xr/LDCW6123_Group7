@@ -4,6 +4,8 @@
 
 using namespace std;
 
+void generateQR(string content);
+
 // ========== URL Validation ==========
 bool validateURL(string url)
 {
@@ -45,6 +47,7 @@ void processURL()
 
     cout << "\nValid URL.\n";
     cout << "Content: " << url << endl;
+    generateQR(url);
 }
 
 // ========== Text Validation ==========
@@ -86,6 +89,7 @@ void processText()
 
     cout << "\nValid text.\n";
     cout << "Content: " << text << endl;
+    generateQR(text);
 }
 
 // ========== Contact Processing ==========
@@ -111,14 +115,27 @@ bool validateContact(contactInfo *contact){
     // Check name
     if (!contact->name.empty())
     {
+        bool hasLetter = false;
+
         for (char c : contact->name)
         {
-            if (!isalpha(c) && !isspace(c))
+            if (isalpha(c))
+            {
+                hasLetter = true;
+            }
+            else if (!isspace(c))
             {
                 cout << "ERROR: Name only contains letters and spaces." << endl;
                 valid = false;
                 break;
             }
+        }
+
+        // Check if name contains at least one letter
+        if (hasLetter == false)
+        {
+            cout << "ERROR: Name must contain at least one letter." << endl;
+            valid = false;
         }
     }
 
@@ -139,8 +156,7 @@ bool validateContact(contactInfo *contact){
     // Check email
     if (!contact->email.empty())
     {
-        if (contact->email.find('@') == string::npos ||
-            contact->email.find(".com") == string::npos)
+        if (contact->email.find('@') == string::npos || contact->email.find(".com") == string::npos)
         {
             cout << "ERROR: Invalid email address." << endl;
             valid = false;
@@ -174,7 +190,7 @@ void processContact()
         cout << "Enter phone number: ";
         getline(cin, contact.phone);
 
-        cout << "Enter email address: \n";
+        cout << "Enter email address: ";
         getline(cin, contact.email);
 
         valid = validateContact(&contact);
@@ -189,4 +205,5 @@ void processContact()
 
     cout << "\nValid contact information." << endl;
     displayContact(&contact);
+    generateQR(contact.name + "|" + contact.phone + "|" + contact.email);
 }
