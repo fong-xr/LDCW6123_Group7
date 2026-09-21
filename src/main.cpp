@@ -53,7 +53,6 @@ int main ()
             cin.ignore(1000, '\n');
 
             cout << "\n !!! Invalid choice. Please enter 1, 2, 3, or 4. !!!\n";
-            cout << "======================================================\n";
 
             continue;
         }

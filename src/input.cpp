@@ -135,7 +135,7 @@ bool validateContact(contactInfo *contact){
             firstError = false;
         }
 
-        cout << "All information are required." << endl;
+        cout << "! All information are required." << endl;
         valid = false;
     }
 
@@ -158,7 +158,7 @@ bool validateContact(contactInfo *contact){
                     firstError = false;
                 }
 
-                cout << "Name only contains letters and spaces." << endl;
+                cout << "! Name only contains letters and spaces." << endl;
                 valid = false;
                 break;
             }
@@ -173,7 +173,7 @@ bool validateContact(contactInfo *contact){
                 firstError = false;
             }
 
-            cout << "Name must contain at least one letter." << endl;
+            cout << "! Name must contain at least one letter." << endl;
             valid = false;
         }
     }
@@ -191,7 +191,7 @@ bool validateContact(contactInfo *contact){
                     firstError = false;
                 }
 
-                cout << "Phone number only contains digits." << endl;
+                cout << "! Phone number only contains digits." << endl;
                 valid = false;
                 break;
             }
@@ -201,15 +201,37 @@ bool validateContact(contactInfo *contact){
     // Check email
     if (!contact->email.empty())
     {
-        if (contact->email.find('@') == string::npos || contact->email.find(".com") == string::npos)
+        bool hasLetter = false;
+        bool hasAt = false;
+        bool hasCom = false;
+
+        for (char c : contact->email)
+        {
+            if (isalpha(c))
+            {
+                hasLetter = true;
+            }
+
+            if (c == '@')
+            {
+                hasAt = true;
+            }
+        }
+
+        if (contact->email.find(".com") != string::npos)
+        {
+            hasCom = true;
+        }
+
+        if (!hasLetter || !hasAt || !hasCom)
         {
             if (firstError)
             {
-                cout << "\n*********************** Error ************************\n\n";
+                cout << "\n************************* Error *************************\n\n";
                 firstError = false;
             }
 
-            cout << "Invalid email address." << endl;
+            cout << "! Email must contain letters, '@', and '.com'." << endl;
             valid = false;
         }
     }
